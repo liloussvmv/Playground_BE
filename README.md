@@ -3,7 +3,7 @@
     python3 -m venv myenv
     cd myenv/script/
     activate
-
+hi
 2- Navigate to the project directory and install the dependencies from the requirements.txt file:
 
     pip install -r requirements.txt
