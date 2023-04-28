@@ -1,4 +1,4 @@
-1- Create a virtual environment for the project 
+1- Create a virtual environment for the project (Inside the project folder)
 
     python3 -m venv myenv
     cd myenv/script/
