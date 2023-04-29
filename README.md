@@ -1,7 +1,8 @@
-1- Create a virtual environment for the project 
+1- Create a virtual environment for the project (Inside the project folder)
 
     python3 -m venv myenv
-    source myenv/bin/activate
+    cd myenv/script/
+    activate
 
 2- Navigate to the project directory and install the dependencies from the requirements.txt file:
 
