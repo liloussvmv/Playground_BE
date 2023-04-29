@@ -9,7 +9,7 @@
 
 This will install all the required packages with their specific versions mentioned in the requirements.txt file.
 
-2- Start the Flask application:
+3- Start the Flask application:
 
     flask run
 
