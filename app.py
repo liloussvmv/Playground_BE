@@ -5,11 +5,16 @@ from DB_config import db_config
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required,current_user
 from datetime import datetime
+from flask_cors import CORS
+
 
 app = Flask(__name__)
+
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://{user}:{password}@{host}:{port}/{database}'.format(**db_config)
 app.secret_key = 'MyS3cR3tK3y@0b9'
 db = SQLAlchemy(app)
+CORS(app, origins=["http://127.0.0.1:5500"])
+
 
 @app.route("/")
 def hello_world():
@@ -198,6 +203,19 @@ def add_comment(post_id):
         return jsonify({'message': 'Comment Has not been added.'}), 400
 
 
+# @app.route('/api/posts/<int:post_id>/comment', methods=["POST"])
+# def delete_comment(post_id):
+#     data = request.get_json()
+#     content = data.get("content")
+#     user_id = current_user.id
+#     if user_id and content and post_id:
+#         new_comment = Comment(content=content,user_id=user_id,created_at = "2023-04-29 20:12:27",post_id = post_id)
+#         db.session.remove(new_comment)
+#         db.session.commit()
+#         return jsonify({'message': 'Comment Added successfully.'}), 201
+#     else:
+#         return jsonify({'message': 'Comment Has not been added.'}), 400
+    
 
 
 """
