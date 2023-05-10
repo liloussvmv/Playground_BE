@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{% block title %}{% endblock %}</title>
+
+       <link rel="stylesheet" href="/static/css/navigationBar.css">
+       <link rel="stylesheet" href="/static/css/ulist.css">
+       <link rel="stylesheet" href="/static/css/userInfo.css">
+       <link rel="stylesheet" href="/static/css/createFormPost.css">
+<!--        <link rel="stylesheet" href="/static/css/docsas.css">-->
+<!--        <link rel="stylesheet" href="/static/css/comments.css">-->
+<!--        <link rel="stylesheet" href="/static/css/Modal.css">-->
+<!--		<link rel="stylesheet" href="/static/css/App.css">-->
+<!--		<link rel="stylesheet" href="/static/css/messages.css">-->
+
+	  </head>
+    <body>
+
+    <!-- Navbar -->
+    <nav>
+        <div class="logo">
+          <img src="path/to/your/logo.png" alt="Logo">
+          CyberPlayground
+        </div>
+        <ul class="nav-links">
+          <li><a href="{{ url_for('challenges')}}">Challenges</a></li>
+          <li><a href="{{ url_for('forum')}}">Forum</a></li>
+          <li><a href="{{ url_for('profile')}}">Profile</a></li>
+          <li><a href="#" style="color:red;">Logout</a></li>
+        </ul>
+  </nav>
+
+
+<div class="container">
+    {% block body %}
+    {% endblock %}
+</div>
+</center>
+
+
+
+  <div class="footer">
+    <p>end :) </p>
+  </div>
+    </body>
+</html>
