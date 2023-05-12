@@ -1,0 +1,28 @@
+body {
+    background-color: #f0f7f4;
+    font-family: Arial, sans-serif;
+}
+
+.user-info {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #e4f4fd;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.user-info h2 {
+    color: #006d77;
+    margin-top: 0;
+}
+
+.user-info p {
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.user-info span.label {
+    font-weight: bold;
+    color: #0096c7;
+}

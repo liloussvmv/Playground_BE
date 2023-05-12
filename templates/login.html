@@ -1,0 +1,23 @@
+<html><head>
+
+    <link rel="stylesheet" href="/static/css/login.css">
+    <title>Login Page</title>
+
+  </head>
+
+  <body>
+
+    <form id="login" class="input-group" action="{{url_for('login') }}" method="post">
+      <h2>Login</h2>
+      <label ><b>Username</b></label>
+      <input type="text" placeholder="Enter Username" name="username" required>
+
+      <label ><b>Password</b></label>
+      <input type="password" placeholder="Enter Password" name="password" required="">
+
+      <button type="submit">Login</button>
+      <p >Don't have an account? <a href="{{ url_for('registerPage') }}">Register here</a></p>
+    </form>
+
+
+</body></html>
