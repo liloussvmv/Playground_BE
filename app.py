@@ -107,7 +107,7 @@ def login():
 @app.route('/challenges')
 @login_required
 def challenges():
-    return render_template("challenges.html",user=current_user.username,challenges=[{"title":"Challenge 1","typeProblem":"Reverse Engineer","info":"you have to follow the next instructions"},{"title":"Challenge 2","typeProblem":"Key recover","info":"you have to follow the next instructions"},{"title":"Challenge 3","typeProblem":"encryption ","info":"you have to follow the next instructions"},{"title":"Challenge 4","typeProblem":"CTF","info":"you have to follow the next instructions"},{"title":"Challenge 5","typeProblem":"MYSQL poisoning","info":"you have to follow the next instructions"},])
+    return render_template("challenges.html",user=current_user.username,challenges=[{"title":"Challenge 1","typeProblem":"Reverse Engineer","info":"you have to follow the next instructions"},{"title":"Challenge 2","typeProblem":"Key recover","info":"you have to follow the next instructions"},{"title":"Challenge 3","typeProblem":"Encryption ","info":"you have to follow the next instructions"},{"title":"Challenge 4","typeProblem":"CTF","info":"you have to follow the next instructions"},{"title":"Challenge 5","typeProblem":"MYSQL poisoning","info":"you have to follow the next instructions"},])
 
 
 
@@ -141,7 +141,7 @@ def room(post_id):
 @app.route('/profile')
 @login_required
 def profile():
-    return render_template("profile.html",data={"userName":"1234567", "level":" 2", "email":"1@1.com"})
+    return render_template("profile.html",data={"Username":current_user.username, "Level":current_user.id, "Email":current_user.email})
 
 @app.route('/logout')
 @login_required
