@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Welcome user:
+    {{name}}
+{% endblock %}
+
+{% block body %}
+<h1>PROFILE PROFILE PROFILE </h1>
+
+    <div class="user-info">
+        <h2>User Information</h2>
+        <p><span class="label">userName:</span> {{data.userName}}</p>
+        <p><span class="label">Email:</span> {{data.email}}</p>
+        <p><span class="label">Level:</span> {{data.level}}</p>
+    </div>
+
+
+{% endblock %}
+
+
+
+

@@ -1,0 +1,61 @@
+body {
+    background-color: #f4f4f4;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.comments-section {
+    max-width: 800px;
+    width: 90%;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.comments-section h2 {
+    text-align: center;
+    color: #333;
+}
+
+.comment {
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.comment-info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.author {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.timestamp {
+    color: #888;
+}
+
+.comment-content p {
+    margin: 0;
+}
+
+.add-comment {
+    margin-top: 20px;
+}
+
+.add-comment h3 {
+    color: #333

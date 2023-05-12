@@ -1,25 +1,23 @@
-from flask import Flask,jsonify,request,session
+
+from flask import Flask,url_for,jsonify,redirect,request,session,render_template
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import and_
 from DB_config import db_config
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required,current_user
 from datetime import datetime
-from flask_cors import CORS
-
 
 app = Flask(__name__)
-
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://{user}:{password}@{host}:{port}/{database}'.format(**db_config)
 app.secret_key = 'MyS3cR3tK3y@0b9'
 db = SQLAlchemy(app)
-CORS(app, origins=["http://127.0.0.1:5500"])
-
-
+#commment1
 @app.route("/")
-def hello_world():
-    return "<H1> Hello World !!</H1>"
-
+def index():
+    return render_template('login.html')
+@app.route("/registerPage")
+def registerPage():
+    return render_template('register.html')
 
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -58,11 +56,18 @@ class Comment(db.Model):
 
 @app.route('/register', methods=['POST'])
 def register():
-    data = request.get_json()
-    username = data.get('username')
-    password = data.get('password')
-    email = data.get('email')
-    
+    # data = request.get_json()
+    # username = data.get('username')
+    # password = data.get('password')
+    # email = data.get('email')
+
+    username = request.form.get('username')
+    password = request.form.get('password')
+    email = request.form.get('email')
+
+
+
+
     hashed_password = generate_password_hash(password, method='sha256')
     user = User.query.filter_by(username=username).first()
     if not user:
@@ -70,7 +75,7 @@ def register():
             new_user = User(username=username, password=hashed_password,email=email)
             db.session.add(new_user)
             db.session.commit()
-            return jsonify({'message': 'User registered successfully.'}), 201
+            return  redirect('/')#jsonify({'message': 'User registered successfully.'}), 201
         else:
             return jsonify({'message': 'Invalid username or password.'}), 400
     else:
@@ -78,32 +83,72 @@ def register():
 
 @app.route('/login', methods=['POST'])
 def login():
-    data = request.get_json()
-    username = data.get('username')
-    password = data.get('password')
-    
+    # data = request.get_json()
+    # username = data.get('username')
+    # password = data.get('password')
+    username = request.form.get('username')
+    password = request.form.get('password')
     if not username or not password:
         return jsonify({'message': 'Invalid username or password.'}), 400
-    
+
     """user = User.query.filter_by(username=username).first()
     if not user or not user.verify_password(password):
         return jsonify({'message': 'Invalid username or password.'}), 400"""
-    
+
     user = User.query.filter_by(username=username).first()
     if not user or not check_password_hash(user.password, password):
         return jsonify({'message': 'Invalid username or password.'}), 400
-    
+
     login_user(user)
     session.permanent = True
-    return jsonify({'message': 'User logged in successfully.'}), 200
-    
+    return redirect('/challenges')#jsonify({'message': 'User logged in successfully.'}), 200
 
+
+@app.route('/challenges')
+@login_required
+def challenges():
+    return render_template("challenges.html",user=current_user.username,challenges=[{"title":"Challenge 1","typeProblem":"Reverse Engineer","info":"you have to follow the next instructions"},{"title":"Challenge 2","typeProblem":"Key recover","info":"you have to follow the next instructions"},{"title":"Challenge 3","typeProblem":"encryption ","info":"you have to follow the next instructions"},{"title":"Challenge 4","typeProblem":"CTF","info":"you have to follow the next instructions"},{"title":"Challenge 5","typeProblem":"MYSQL poisoning","info":"you have to follow the next instructions"},])
+
+
+
+@app.route('/forum')
+@login_required
+def forum():
+    posts = Post.query.all()
+    return render_template("forum.html",posts=posts,forums=["problemas 1","problemas 2","problemas 3","problemas 4","problemas 5",])
+
+@app.route('/forum/<int:post_id>', methods=["GET","POST"])
+@login_required
+def room(post_id):
+
+    post = Post.query.get(post_id)
+    comments1 = Comment.query.filter_by(post_id=post.id).all()
+    commentUsers=[]
+    varUsername=""
+    for c in comments1:
+        varUsername= c.user_id
+        commentUsers.append({"username":User.query.get(varUsername).username,"content":c.content,"created":c.created_at})
+    if post:
+        # Comment( post_id=post_id)
+        return render_template("room.html",post=post,commentUsers=commentUsers,comments=[{"comment":"comment 1","username":"user1","date":"2023:12:12"},{"comment":"comment 2","username":"user2","date":"2023:12:12"},{"comment":"comment 3","username":"user3","date":"2023:12:12"},{"comment":"comment 4","username":"user4","date":"2023:12:12"},{"comment":"comment 5","username":"user5","date":"2023:12:12"}])
+        redirect('/forum')
+    else:
+        return jsonify({'message': 'Post not found.'}), 404
+
+    return redirect('/forum')
+
+
+@app.route('/profile')
+@login_required
+def profile():
+    return render_template("profile.html",data={"userName":"1234567", "level":" 2", "email":"1@1.com"})
 
 @app.route('/logout')
 @login_required
 def logout():
     logout_user()
-    return jsonify({'message': 'User logged out successfully.'}), 200
+    return redirect("/")
+    # return jsonify({'message': 'User logged out successfully.'}), 200
 
 @app.route('/protected')
 @login_required
@@ -111,7 +156,7 @@ def prot():
     return jsonify({'message': 'Protected.'}), 200
 
 if __name__ == '__main__':
-    
+
     app.run(debug=True)
 
 
@@ -120,19 +165,24 @@ with app.app_context():
 
 
 # Creating Posts
-@app.route('/api/addpost', methods=["POST"])
+@app.route('/api/add_post', methods=["POST"])
 @login_required
 def add_posts():
-    data = request.get_json()
-    title = data.get("title")
-    content = data.get("content")
+    # data = request.get_json()
+    # title = data.get("title")
+    # content = data.get("content")
+    # user_id = current_user.id
+
+    title = request.form.get('title')
+    content = request.form.get("content")
     user_id = current_user.id
 
     if title and content:
         new_post = Post(title=title,content=content,user_id=user_id)
         db.session.add(new_post)
         db.session.commit()
-        return jsonify({'message': 'Post Added successfully.'}), 201
+        # return jsonify({'message': 'Post Added successfully.'}), 201
+        return redirect(url_for('room', post_id=new_post.id))
     else:
         return jsonify({'message': 'Post Has not been added.'}), 400
 
@@ -169,7 +219,7 @@ def get_post(post_id):
         }), 200
     else:
         return jsonify({'message': 'Post not found.'}), 404
-    
+
 
 @app.route('/api/deletepost/<int:post_id>', methods=["DELETE"])
 @login_required
@@ -184,38 +234,29 @@ def delete_post(post_id):
             return jsonify({'message': 'Post Deleted'}), 200
         else:
             return jsonify({'message': 'Post not found.'}), 404
-    else: 
+    else:
         return jsonify({'message': 'Unauthorized.'}), 403
 
 #Adding a comment
-   
+
 @app.route('/api/posts/<int:post_id>/comment', methods=["POST"])
 def add_comment(post_id):
-    data = request.get_json()
-    content = data.get("content")
+    # data = request.get_json()
+    # content = data.get("content")
+
+    content = request.form.get('content')
     user_id = current_user.id
     if user_id and content and post_id:
         new_comment = Comment(content=content,user_id=user_id,created_at = "2023-04-29 20:12:27",post_id = post_id)
         db.session.add(new_comment)
         db.session.commit()
-        return jsonify({'message': 'Comment Added successfully.'}), 201
+        print(content)
+        # return jsonify({'message': 'Comment Added successfully.'}), 201
+        return redirect(url_for('room', post_id=post_id))
     else:
         return jsonify({'message': 'Comment Has not been added.'}), 400
 
 
-# @app.route('/api/posts/<int:post_id>/comment', methods=["POST"])
-# def delete_comment(post_id):
-#     data = request.get_json()
-#     content = data.get("content")
-#     user_id = current_user.id
-#     if user_id and content and post_id:
-#         new_comment = Comment(content=content,user_id=user_id,created_at = "2023-04-29 20:12:27",post_id = post_id)
-#         db.session.remove(new_comment)
-#         db.session.commit()
-#         return jsonify({'message': 'Comment Added successfully.'}), 201
-#     else:
-#         return jsonify({'message': 'Comment Has not been added.'}), 400
-    
 
 
 """
@@ -228,3 +269,14 @@ def get_users():
     ]
     return {'Users': users}
 """
+
+
+# :\Users\fran3\OneDrive\Documentos\python\Playground_BE-main>flask run
+# 'flask' is not recognized as an internal or external command,
+# operable program or batch file.
+#
+# C:\Users\fran3\OneDrive\Documentos\python\Playground_BE-main>cd myenv
+#
+# (myenv) C:\Users\fran3\OneDrive\Documentos\python\Playground_BE-main\myenv>cd ..
+#
+# (myenv) C:\Users\fran3\OneDrive\Documentos\python\Playground_BE-main>flask run
