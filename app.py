@@ -1,4 +1,5 @@
-from flask import Flask,jsonify,redirect,request,session,render_template
+
+from flask import Flask,url_for,jsonify,redirect,request,session,render_template
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import and_
 from DB_config import db_config
@@ -74,7 +75,7 @@ def register():
             new_user = User(username=username, password=hashed_password,email=email)
             db.session.add(new_user)
             db.session.commit()
-            return render_template("challenges.html")#jsonify({'message': 'User registered successfully.'}), 201
+            return  redirect('/')#jsonify({'message': 'User registered successfully.'}), 201
         else:
             return jsonify({'message': 'Invalid username or password.'}), 400
     else:
@@ -119,14 +120,22 @@ def forum():
 @app.route('/forum/<int:post_id>', methods=["GET","POST"])
 @login_required
 def room(post_id):
+
     post = Post.query.get(post_id)
-    print("rooooommmmmmm",post)
+    comments1 = Comment.query.filter_by(post_id=post.id).all()
+    commentUsers=[]
+    varUsername=""
+    for c in comments1:
+        varUsername= c.user_id
+        commentUsers.append({"username":User.query.get(varUsername).username,"content":c.content,"created":c.created_at})
     if post:
-        return render_template("room.html",post=post,comments=["comment 1","comment 2","comment 3","comment 4","comment 5",])
+        # Comment( post_id=post_id)
+        return render_template("room.html",post=post,commentUsers=commentUsers,comments=[{"comment":"comment 1","username":"user1","date":"2023:12:12"},{"comment":"comment 2","username":"user2","date":"2023:12:12"},{"comment":"comment 3","username":"user3","date":"2023:12:12"},{"comment":"comment 4","username":"user4","date":"2023:12:12"},{"comment":"comment 5","username":"user5","date":"2023:12:12"}])
+        redirect('/forum')
     else:
         return jsonify({'message': 'Post not found.'}), 404
 
-    return render_template("room.html",info=posts[0],posts=posts,forums=["problemas 1","problemas 2","problemas 3","problemas 4","problemas 5",])
+    return redirect('/forum')
 
 
 @app.route('/profile')
@@ -138,7 +147,8 @@ def profile():
 @login_required
 def logout():
     logout_user()
-    return jsonify({'message': 'User logged out successfully.'}), 200
+    return redirect("/")
+    # return jsonify({'message': 'User logged out successfully.'}), 200
 
 @app.route('/protected')
 @login_required
@@ -172,7 +182,7 @@ def add_posts():
         db.session.add(new_post)
         db.session.commit()
         # return jsonify({'message': 'Post Added successfully.'}), 201
-        return redirect('/challenges')
+        return redirect(url_for('room', post_id=new_post.id))
     else:
         return jsonify({'message': 'Post Has not been added.'}), 400
 
@@ -231,14 +241,18 @@ def delete_post(post_id):
 
 @app.route('/api/posts/<int:post_id>/comment', methods=["POST"])
 def add_comment(post_id):
-    data = request.get_json()
-    content = data.get("content")
+    # data = request.get_json()
+    # content = data.get("content")
+
+    content = request.form.get('content')
     user_id = current_user.id
     if user_id and content and post_id:
         new_comment = Comment(content=content,user_id=user_id,created_at = "2023-04-29 20:12:27",post_id = post_id)
         db.session.add(new_comment)
         db.session.commit()
-        return jsonify({'message': 'Comment Added successfully.'}), 201
+        print(content)
+        # return jsonify({'message': 'Comment Added successfully.'}), 201
+        return redirect(url_for('room', post_id=post_id))
     else:
         return jsonify({'message': 'Comment Has not been added.'}), 400
 
