@@ -1,0 +1,70 @@
+{"categories": [
+    {"id": 0, "name": "Misc.", "short_name": "Misc", "tasks": [
+        {
+            "id": 0, 
+            "name": "Test flag, please ignore", 
+            "flag": "flag{hello_world}",
+            "desc": "The flag is hello_world, with the flag tag and brackets",
+            "file": "misc50.zip"
+        },
+        {
+            "id": 1, 
+            "name": "Test flag, please ignore 2", 
+            "flag": "flag{test_test}",
+            "desc": "The flag is test_test, with the flag tag and brackets",
+            "file": "misc100.zip"
+        }
+    ]},
+    {"id": 1, "name": "Web", "short_name": "Web", "tasks": [
+        {
+            "id": 2, 
+            "name": "Some sqli task", 
+            "flag": "flag{web_test}",
+            "desc": "The flag is web_test, with the flag tag and brackets",
+            "file": "web100.zip"
+        }
+    ]},
+    {"id": 2, "name": "Reversing", "short_name": "Rev", "tasks": [
+        {
+            "id": 3, 
+            "name": "gdb is your friend", 
+            "flag": "flag{reversing_is_fun}",
+            "desc": "The flag is reversing_is_fun, with the flag tag and brackets",
+            "file": "rev100.zip"
+        }
+    ]},
+    {"id": 3, "name": "Exploit", "short_name": "Exp", "tasks": [
+        {
+            "id": 4, 
+            "name": "Smashing the stack for fun and profit", 
+            "flag": "flag{pwning_is_even_more_fun}",
+            "desc": "The flag is pwning_is_even_more_fun, with the flag tag and brackets",
+            "file": "pwn200.zip"
+        }
+    ]},
+    {"id": 4, "name": "Crypto", "short_name": "Cry", "tasks": [
+        {
+            "id": 5, 
+            "name": "Some simple crypto task here", 
+            "flag": "flag{some_crypto_task}",
+            "desc": "The flag is some_crypto_task, with the flag tag and brackets",
+            "file": "cry100.zip"
+        },
+        {
+            "id": 6, 
+            "name": "More crypto tasks!", 
+            "flag": "flag{more_crypto}",
+            "desc": "The flag is more_crypto, with the flag tag and brackets",
+            "file": "cry200.zip"
+        }
+    ]},
+    {"id": 5, "name": "Stego", "short_name": "Steg", "tasks": [
+        {
+            "id": 7, 
+            "name": "Ucucuga", 
+            "flag": "flag{ucucuga}",
+            "desc": "The flag is ucucuga, with the flag tag and brackets",
+            "file": "stego100.zip"
+        }
+    ]}
+]}

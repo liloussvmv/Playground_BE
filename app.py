@@ -1,5 +1,4 @@
-
-from flask import Flask,url_for,jsonify,redirect,request,session,render_template
+from flask import Flask,url_for,jsonify,redirect,request,session,render_template,json
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import and_
 from DB_config import db_config
@@ -87,6 +86,7 @@ def login():
     # username = data.get('username')
     # password = data.get('password')
     username = request.form.get('username')
+    print(username)
     password = request.form.get('password')
     if not username or not password:
         return jsonify({'message': 'Invalid username or password.'}), 400
@@ -247,7 +247,7 @@ def add_comment(post_id):
     content = request.form.get('content')
     user_id = current_user.id
     if user_id and content and post_id:
-        new_comment = Comment(content=content,user_id=user_id,created_at = "2023-04-29 20:12:27",post_id = post_id)
+        new_comment = Comment(content=content,user_id=user_id,post_id = post_id)
         db.session.add(new_comment)
         db.session.commit()
         print(content)
@@ -257,26 +257,20 @@ def add_comment(post_id):
         return jsonify({'message': 'Comment Has not been added.'}), 400
 
 
+# Flag handler Using JSON
+@app.route('/challenges/flags',methods=["POST"])
+@login_required
+def task():
+    data = request.get_json()
+    flag = data.get('flag')
+    challenge = int(data.get('challenge'))
+    category = int(data.get('category'))
 
-
-"""
-@app.route('/api/users')
-def get_users():
-    users = [
-        {'title': 'User 1', 'content': 'This is the User 1.'},
-        {'title': 'User 2', 'content': 'This is the User 2.'},
-        {'title': 'User 3', 'content': 'This is the User 3.'},
-    ]
-    return {'Users': users}
-"""
-
-
-# :\Users\fran3\OneDrive\Documentos\python\Playground_BE-main>flask run
-# 'flask' is not recognized as an internal or external command,
-# operable program or batch file.
-#
-# C:\Users\fran3\OneDrive\Documentos\python\Playground_BE-main>cd myenv
-#
-# (myenv) C:\Users\fran3\OneDrive\Documentos\python\Playground_BE-main\myenv>cd ..
-#
-# (myenv) C:\Users\fran3\OneDrive\Documentos\python\Playground_BE-main>flask run
+    tasks_str = open('tasks.json', 'rb').read()
+    tasks_json = json.loads(tasks_str)
+    stored_flag = tasks_json["categories"][category]["tasks"][challenge]["flag"]
+    
+    if flag == stored_flag:
+        return jsonify({'message': 'Congratulations! You have solved the challenge.'}), 200
+    else:
+        return jsonify({'message': 'Wrong Flag.'}), 200
