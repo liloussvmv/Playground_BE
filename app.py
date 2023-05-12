@@ -10,7 +10,7 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://{user}:{password}@{host}:{port}/{database}'.format(**db_config)
 app.secret_key = 'MyS3cR3tK3y@0b9'
 db = SQLAlchemy(app)
-
+#commment1
 @app.route("/")
 def index():
     return render_template('login.html')
