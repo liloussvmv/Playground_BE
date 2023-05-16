@@ -7,20 +7,10 @@
 
 {% block body %}
 <h1>FORUM FORUM FORUM</h1>
-    <ul class="stylish-list">
-      {% for forum in forums %}
-          <li>
-            <a href="{{ url_for('challenges')}}"><h2>{{forum}}</h2></a>
-          </li>
-      {% else %}
-      <li> Does not exist a room yet, try to create one.</li>
-      {% endfor %}
-    </ul>
 
 <br>
 <br>
 <br><br>
-<h1>Actual forums from our database</h1>
 
     <ul class="stylish-list">
         {% for post in posts %}

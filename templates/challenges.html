@@ -2,29 +2,33 @@
 
 {% block title %}
     Welcome!
-
 {% endblock %}
 
 {% block body %}
-<h1>Welcome, {{user}}!</h1>
-<h2>Challenge </h2>
-
+    <h1>Welcome,{{user}}!</h1>
+    <h2>Challenges</h2>
 
     <div class="grid-container">
-      {% for challenge in challenges %}
-          <div class="grid-item" data-modal="#myModal" data-title="{{challenge.title}}" data-body="{{challenge.info}}">{{challenge.typeProblem}}</div>
-      {% else %}
-       Does not exist a room yet, try to create one.
-      {% endfor %}
+        {% for challenge in challenges %}
+            <div class="grid-item" data-modal="#myModal" data-title="{{challenge.challenge}}" data-body="{{challenge.info}}">{{challenge.category}}</div>
+        {% else %}
+            Does not exist a room yet, try to create one.
+        {% endfor %}
     </div>
 
-
     <div id="myModal" class="modal">
-      <div class="modal-content">
-        <span class="close">&times;</span>
-        <h2></h2>
-        <p>pppp</p>
-      </div>
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2></h2>
+            <p></p>
+            <form action="{{ url_for('flags') }}" method="post">
+                <input type="text" name="flag">
+                <input type="hidden" name="challenge" value="">
+                <input type="hidden" name="category" value="">
+                <button type="button" id="submit-btn">Submit</button>
+            </form>
+        </div>
     </div>
 
     <script>
@@ -37,50 +41,36 @@
         // Get all the grid items
         var gridItems = document.querySelectorAll('.grid-item');
 
-        // Get the title and body elements inside the modal
-        var modalTitle = document.querySelector('#myModal h2');
-        var modalBody = document.querySelector('#myModal p');
+        // Get the form inputs
+        var flagInput = document.querySelector('input[name="flag"]');
+        var challengeInput = document.querySelector('input[name="challenge"]');
+        var categoryInput = document.querySelector('input[name="category"]');
 
         // Loop through the grid items and attach click event listeners
         for (var i = 0; i < gridItems.length; i++) {
-          gridItems[i].addEventListener('click', function() {
-            var title = this.dataset.title;
-            var body = this.dataset.body;
-            modalTitle.innerHTML = title;
-            modalBody.innerHTML = body;
-            modal.style.display = "block";
-          });
+            gridItems[i].addEventListener('click', function() {
+                var title = this.dataset.title;
+                var body = this.dataset.body;
+                var category = this.textContent;
+
+                modal.querySelector('h2').innerHTML = title;
+                modal.querySelector('p').innerHTML = body;
+                challengeInput.value = title;
+                categoryInput.value = category;
+                modal.style.display = "block";
+            });
         }
 
         // When the user clicks on <span> (x), close the modal
         span.onclick = function() {
-          modal.style.display = "none";
+            modal.style.display = "none";
         };
 
         // When the user clicks anywhere outside of the modal, close it
         window.onclick = function(event) {
-          if (event.target == modal) {
-            modal.style.display = "none";
-          }
+            if (event.target === modal) {
+                modal.style.display = "none";
+            }
         };
-      </script>
-    </div> <!-- end grid-container -->
-</div> <!-- end main-content -->
-
-    <!-- Modal -->
-    <div id="myModal" class="modal">
-      <!-- Modal content -->
-      <div class="modal-content">
-        <span class="close">&times;</span>
-        <h2></h2>
-        <p></p>
-      </div>
-    </div>
-
-
-
+    </script>
 {% endblock %}
-
-
-
-
