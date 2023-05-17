@@ -304,19 +304,6 @@ def flags():
         return jsonify({'message': 'Congratulations! You have solved the challenge.'}), 200
     else:
         return jsonify({'message': 'Wrong Flag.'}), 200
-<<<<<<< HEAD
-
-@app.route('/download/<filename>')
-def download_file(filename):
-    file_path = f'static/fileChallenges/{filename}'  # Replace with the path to your file
-
-    # Check if the file exists
-    if os.path.isfile(file_path):
-        return send_file(file_path, as_attachment=True)
-    else:
-        return "File not found"
-=======
-    
 
 @app.route('/leaderboard', methods=["GET"])
 def leaderboard():
@@ -331,4 +318,15 @@ def leaderboard():
     return render_template('leaderboard.html', leaderboard_data=leaderboard_data)
 
     #return jsonify(leaderboard_data), 200
->>>>>>> 38dacb35afd1b4040f2e3d7e8215022bae3a497b
+
+
+@app.route('/download/<filename>')
+def download_file(filename):
+    file_path = f'static/fileChallenges/{filename}'  # Replace with the path to your file
+
+    # Check if the file exists
+    if os.path.isfile(file_path):
+        return send_file(file_path, as_attachment=True)
+    else:
+        return "File not found"
+
