@@ -15,7 +15,8 @@
 
 
                 {% for challenge in category.tasks %}
-                    <div class="grid-item" data-modal="#myModal" data-categoryid="{{category.id}}" data-challengeid="{{challenge.id}}" data-title="{{challenge.name}}" data-body="{{challenge.desc}}">{{challenge.name}}</div>
+                    <div class="grid-item" data-modal="#myModal" data-categoryid="{{category.id}}" data-challengeid="{{challenge.id}}" data-title="{{challenge.name}}" data-body="{{challenge.desc}}" data-file="{{challenge.file}}">{{challenge.name}} </div>
+
                     {% else %}
                         Does not exist a room yet, try to create one.
                     {% endfor %}
@@ -25,13 +26,14 @@
         {% endfor %}
 
     </div>
-
+    <a href="{{ url_for('download_file', filename='read.py') }}">Download File</a>
     <div id="myModal" class="modal">
         <!-- Modal content -->
         <div class="modal-content">
             <span class="close">&times;</span>
             <h2></h2>
             <p></p>
+            <a></a>
             <form action="{{ url_for('flags') }}" method="post">
                 <input type="text" name="flag">
                 <input type="hidden" name="challenge" value="">
@@ -64,13 +66,19 @@
                 var category = this.textContent;
                 var challengeId1 = this.dataset.challengeid;
                 var categoryId1 = this.dataset.categoryid;
-
+                var dataFile = this.dataset.file;
 
                 modal.querySelector('h2').innerHTML = title;
                 modal.querySelector('p').innerHTML = body;
+                modal.querySelector('a').textContent = dataFile;
+                modal.querySelector('a').href="/download/" + " " + dataFile
+
                 challengeInput.value = challengeId1;
                 categoryInput.value = categoryId1;
                 modal.style.display = "block";
+
+
+
             });
         }
 

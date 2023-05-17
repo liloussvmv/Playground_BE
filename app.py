@@ -6,7 +6,8 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
 from datetime import datetime
 from read import requestChallenges
-
+from flask import send_file
+import os
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://{user}:{password}@{host}:{port}/{database}'.format(
     **db_config)
@@ -296,3 +297,13 @@ def flags():
         return jsonify({'message': 'Congratulations! You have solved the challenge.'}), 200
     else:
         return jsonify({'message': 'Wrong Flag.'}), 200
+
+@app.route('/download/<filename>')
+def download_file(filename):
+    file_path = f'static/fileChallenges/{filename}'  # Replace with the path to your file
+
+    # Check if the file exists
+    if os.path.isfile(file_path):
+        return send_file(file_path, as_attachment=True)
+    else:
+        return "File not found"

@@ -9,7 +9,7 @@
             "file": "misc50.zip"
         },
         {
-            "id": 0,
+            "id": 1,
             "number": 1,
             "name": "Test flag, please ignore 2",
             "flag": "flag{test_test}",
@@ -57,7 +57,7 @@
             "file": "cry100.zip"
         },
         {
-            "id": 0,
+            "id": 1,
             "number": 6,
             "name": "More crypto tasks!",
             "flag": "flag{more_crypto}",
@@ -76,3 +76,4 @@
         }
     ]}
 ]}
+
