@@ -42,6 +42,7 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(50), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(128), nullable=False)
+    score = db.Column(db.Integer, nullable=False,default=0)
     posts = db.relationship('Post', backref='author', lazy=True)
     comments = db.relationship('Comment', backref='author', lazy=True)
 
@@ -157,7 +158,7 @@ def room(post_id):
 @app.route('/profile')
 @login_required
 def profile():
-    return render_template("profile.html", data={"Username": current_user.username, "Level": current_user.id,
+    return render_template("profile.html", data={"Username": current_user.username, "Score": current_user.score,
                                                  "Email": current_user.email})
 
 
@@ -291,8 +292,29 @@ def flags():
     tasks_json = requestChallenges()
     # print(len(tasks_json))
     stored_flag = tasks_json[int(categoryId)]["tasks"][int(challengeId)]["flag"]
+    score = tasks_json[int(categoryId)]["tasks"][int(challengeId)]["score"]
 
     if flag == stored_flag:
+        # to update the score in database
+        newScore = current_user.score + score
+        current_user.score = newScore
+        db.session.commit()
+
         return jsonify({'message': 'Congratulations! You have solved the challenge.'}), 200
     else:
         return jsonify({'message': 'Wrong Flag.'}), 200
+    
+
+@app.route('/leaderboard', methods=["GET"])
+def leaderboard():
+    users = User.query.order_by(User.score.desc()).all()
+    leaderboard_data = []
+    for index, user in enumerate(users, start=1):
+        leaderboard_data.append({
+            "rank": index,
+            "username": user.username,
+            "score": user.score
+        })
+    return render_template('leaderboard.html', leaderboard_data=leaderboard_data)
+
+    #return jsonify(leaderboard_data), 200

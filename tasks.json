@@ -3,6 +3,7 @@
         {
             "id": 0,
             "number": 0,
+            "score":100,
             "name": "Test flag, please ignore",
             "flag": "flag{hello_world}",
             "desc": "The flag is hello_world, with the flag tag and brackets",
@@ -11,6 +12,7 @@
         {
             "id": 0,
             "number": 1,
+            "score":100,
             "name": "Test flag, please ignore 2",
             "flag": "flag{test_test}",
             "desc": "The flag is test_test, with the flag tag and brackets",
@@ -21,6 +23,7 @@
         {
             "id": 0,
             "number": 2,
+            "score":100,
             "name": "Some sqli task",
             "flag": "flag{web_test}",
             "desc": "The flag is web_test, with the flag tag and brackets",
@@ -31,6 +34,7 @@
         {
             "id": 0,
             "number": 3,
+            "score":100,
             "name": "gdb is your friend",
             "flag": "flag{reversing_is_fun}",
             "desc": "The flag is reversing_is_fun, with the flag tag and brackets",
@@ -41,6 +45,7 @@
         {
             "id": 0,
             "number": 4,
+            "score":100,
             "name": "Smashing the stack for fun and profit",
             "flag": "flag{pwning_is_even_more_fun}",
             "desc": "The flag is pwning_is_even_more_fun, with the flag tag and brackets",
@@ -51,6 +56,7 @@
         {
             "id": 0,
             "number": 5,
+            "score":100,
             "name": "Some simple crypto task here",
             "flag": "flag{some_crypto_task}",
             "desc": "The flag is some_crypto_task, with the flag tag and brackets",
@@ -59,6 +65,7 @@
         {
             "id": 0,
             "number": 6,
+            "score":100,
             "name": "More crypto tasks!",
             "flag": "flag{more_crypto}",
             "desc": "The flag is more_crypto, with the flag tag and brackets",
@@ -69,6 +76,7 @@
         {
             "id": 0,
             "number": 7,
+            "score":100,
             "name": "Ucucuga",
             "flag": "flag{ucucuga}",
             "desc": "The flag is ucucuga, with the flag tag and brackets",
