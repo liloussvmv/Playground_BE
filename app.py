@@ -5,6 +5,7 @@ from DB_config import db_config
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
 from datetime import datetime
+from read import requestChallenges
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://{user}:{password}@{host}:{port}/{database}'.format(
@@ -113,13 +114,16 @@ def login():
 @app.route('/challenges')
 @login_required
 def challenges():
-    return render_template("challenges.html", user=current_user.username, challenges=[
-        {"challenge": "Challenge 1", "category": "Reverse Engineer", "info": "you have to follow the next instructions "},
-        {"challenge": "Challenge 2", "category": "Key recover", "info": "you have to follow the next instructions"},
-        {"challenge": "Challenge 3", "category": "Encryption ", "info": "you have to follow the next instructions"},
-        {"challenge": "Challenge 4", "category": "CTF", "info": "you have to follow the next instructions"},
-        {"challenge": "Challenge 5", "category": "MYSQL poisoning","info": "you have to follow the next instructions"}, ])
 
+    challengesList = requestChallenges()
+
+    # flag = request.form.get('flag')
+    # challenge = request.form.get('challenge')
+    # category = request.form.get('category')
+    # "name": "gdb is your friend",
+    # "flag": "flag{reversing_is_fun}",
+    # "desc": "The flag is reversing_is_fun, with the flag tag and brackets",
+    return render_template("challenges.html", user=current_user.username, challengesList=challengesList )
 
 
 @app.route('/forum')
@@ -143,12 +147,7 @@ def room(post_id):
     if post:
         # Comment( post_id=post_id)
         return render_template("room.html", post=post, commentUsers=commentUsers,)
-                               # comments=[{"comment": "comment 1", "username": "user1", "date": "2023:12:12"},
-                               #           {"comment": "comment 2", "username": "user2", "date": "2023:12:12"},
-                               #           {"comment": "comment 3", "username": "user3", "date": "2023:12:12"},
-                               #           {"comment": "comment 4", "username": "user4", "date": "2023:12:12"},
-                               #           {"comment": "comment 5", "username": "user5", "date": "2023:12:12"}])
-        # redirect('/forum')
+
     else:
         return jsonify({'message': 'Post not found.'}), 404
 
@@ -286,12 +285,12 @@ def flags():
     # category = int(data.get('category'))
     # to form
     flag = request.form.get('flag')
-    challenge = request.form.get('challenge')
-    category = request.form.get('category')
-
-    tasks_str = open('tasks.json', 'rb').read()
-    tasks_json = json.loads(tasks_str)
-    stored_flag = tasks_json["categories"][category]["tasks"][challenge]["flag"]
+    challengeId = request.form.get('challenge')
+    categoryId = request.form.get('category')
+    # print(challengeId,categoryId)
+    tasks_json = requestChallenges()
+    # print(len(tasks_json))
+    stored_flag = tasks_json[int(categoryId)]["tasks"][int(challengeId)]["flag"]
 
     if flag == stored_flag:
         return jsonify({'message': 'Congratulations! You have solved the challenge.'}), 200

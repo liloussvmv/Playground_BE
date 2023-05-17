@@ -9,11 +9,21 @@
     <h2>Challenges</h2>
 
     <div class="grid-container">
-        {% for challenge in challenges %}
-            <div class="grid-item" data-modal="#myModal" data-title="{{challenge.challenge}}" data-body="{{challenge.info}}">{{challenge.category}}</div>
+        {% for category in challengesList %}
+            <div style="clear: both;">
+               <h2>{{category.category}} </h2>
+
+
+                {% for challenge in category.tasks %}
+                    <div class="grid-item" data-modal="#myModal" data-categoryid="{{category.id}}" data-challengeid="{{challenge.id}}" data-title="{{challenge.name}}" data-body="{{challenge.desc}}">{{challenge.name}}</div>
+                    {% else %}
+                        Does not exist a room yet, try to create one.
+                    {% endfor %}
+            </div>
         {% else %}
             Does not exist a room yet, try to create one.
         {% endfor %}
+
     </div>
 
     <div id="myModal" class="modal">
@@ -26,7 +36,7 @@
                 <input type="text" name="flag">
                 <input type="hidden" name="challenge" value="">
                 <input type="hidden" name="category" value="">
-                <button type="button" id="submit-btn">Submit</button>
+                <input type="submit" id="submit-btn" value="Submit"/>
             </form>
         </div>
     </div>
@@ -52,11 +62,14 @@
                 var title = this.dataset.title;
                 var body = this.dataset.body;
                 var category = this.textContent;
+                var challengeId1 = this.dataset.challengeid;
+                var categoryId1 = this.dataset.categoryid;
+
 
                 modal.querySelector('h2').innerHTML = title;
                 modal.querySelector('p').innerHTML = body;
-                challengeInput.value = title;
-                categoryInput.value = category;
+                challengeInput.value = challengeId1;
+                categoryInput.value = categoryId1;
                 modal.style.display = "block";
             });
         }
