@@ -301,9 +301,9 @@ def flags():
         current_user.score = newScore
         db.session.commit()
 
-        return jsonify({'message': 'Congratulations! You have solved the challenge.'}), 200
+        return render_template("result.html",condition=True)
     else:
-        return jsonify({'message': 'Wrong Flag.'}), 200
+        return render_template("result.html",condition=False)
 
 @app.route('/leaderboard', methods=["GET"])
 def leaderboard():

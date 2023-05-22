@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Welcome,
+{{name}}!
+{% endblock %}
+
+{% block body %}
+
+
+
+{% if condition %}
+<h1 style="color:green;">Congrats you finished a challenge, keep going.</h1>
+{% else %}
+<h1 style="color:red;">Error: Invalid "subtimed" Flag</h1>
+<h2>Remember that the flags has the structure: "CSP{" the flag "}"</h2>
+{% endif %}
+
+{% endblock %}
