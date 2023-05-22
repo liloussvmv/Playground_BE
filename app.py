@@ -304,9 +304,9 @@ def flags():
         current_user.score = newScore
         db.session.commit()
 
-        return render_template("result.html",condition=True)
+        return render_template("results.html",condition=True)
     else:
-        return render_template("result.html",condition=False)
+        return render_template("results.html",condition=False)
 
 @app.route('/leaderboard', methods=["GET"])
 def leaderboard():
