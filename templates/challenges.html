@@ -16,7 +16,7 @@
                 {% for challenge in category.tasks %}
                     <div class="grid-item" data-modal="#myModal" data-categoryid="{{category.id}}" data-challengeid="{{challenge.id}}" data-title="{{challenge.name}}" data-body="{{challenge.desc}}" data-file="{{challenge.file}}">{{challenge.name}} </div>
 
-                    {% else %}
+                    {% else %}c
                         Does not exist a room yet, try to create one.
                     {% endfor %}
                 </div>
@@ -70,7 +70,7 @@
                 modal.querySelector('h2').innerHTML = title;
                 modal.querySelector('p').innerHTML = body;
                 modal.querySelector('a').textContent = dataFile;
-                modal.querySelector('a').href="/download/" + " " + dataFile
+                modal.querySelector('a').href="/download/"+ dataFile
 
                 challengeInput.value = challengeId1;
                 categoryInput.value = categoryId1;
