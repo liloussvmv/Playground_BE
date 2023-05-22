@@ -7,7 +7,7 @@ def requestChallenges():
         data = json.load(file)
     challenges=[]
     # Iterate over the categories and tasks
-    for category in data['categories']:
+    for category in data['challanges']:
         challenges.append(category)
     # for category in challenges:
     #     print(f"Category: {category['name']} ({category['short_name']})")

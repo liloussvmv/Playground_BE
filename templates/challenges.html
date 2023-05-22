@@ -8,25 +8,24 @@
     <h1>Welcome,{{user}}!</h1>
     <h2>Challenges</h2>
 
-    <div class="grid-container">
+
         {% for category in challengesList %}
-            <div style="clear: both;">
-               <h2>{{category.category}} </h2>
-
-
+            <div class="grid-container">
+                <div style="clear: both;">
+                <h2>{{category.category}} </h2>
                 {% for challenge in category.tasks %}
                     <div class="grid-item" data-modal="#myModal" data-categoryid="{{category.id}}" data-challengeid="{{challenge.id}}" data-title="{{challenge.name}}" data-body="{{challenge.desc}}" data-file="{{challenge.file}}">{{challenge.name}} </div>
 
                     {% else %}
                         Does not exist a room yet, try to create one.
                     {% endfor %}
+                </div>
             </div>
         {% else %}
             Does not exist a room yet, try to create one.
         {% endfor %}
 
-    </div>
-    <a href="{{ url_for('download_file', filename='read.py') }}">Download File</a>
+
     <div id="myModal" class="modal">
         <!-- Modal content -->
         <div class="modal-content">
