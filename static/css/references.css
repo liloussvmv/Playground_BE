@@ -1,0 +1,35 @@
+@keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+  }
+  
+  h1 {
+    color: #333;
+    animation: fadeIn 1s ease-in;
+  }
+  
+  .platform {
+    margin-bottom: 10px;
+    animation: fadeIn 1s ease-in;
+  }
+  
+  .platform a {
+    color: #007bff;
+    text-decoration: none;
+    transition: color 0.3s ease-in-out;
+  }
+  
+  .platform a:hover {
+    text-decoration: underline;
+    color: #ff6600;
+  }
+  
