@@ -1,14 +1,13 @@
 /* Basic styling for the pages */
 
 body {
-  background-image: url("/static/images/start.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
 }
 
 form {
-  background-color: #ffffff;
+  background-color: #faf8f8;
   border: 1px solid #ccc;
   border-radius: 5px;
   padding: 20px;
