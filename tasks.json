@@ -73,7 +73,7 @@
                     "name": "Ciphered Secrets",
                     "flag": "CSPYouSolvedTheSubstitutionCipher",
                     "desc": "Welcome to the 'Ciphered Secrets' challenge! Prepare yourself to unravel the mysteries concealed within a simple substitution cipher. Engage your cryptographic skills and decode hidden messages using the power of mono-alphabetic substitution. In this challenge, you will encounter encrypted messages that have been transformed using a mono-alphabetic substitution cipher. This cipher involves substituting each letter of the plaintext with a corresponding letter from the cipher alphabet. Your task is to decipher the encrypted messages by uncovering the mapping between the original alphabet and the substituted letters.",
-                    "file": "Cipher.txt"
+                    "file": "Ciphertext.txt"
                 }
             ]
         }
