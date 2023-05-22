@@ -25,6 +25,9 @@ def index():
 def registerPage():
     return render_template('register.html')
 
+@app.route("/references")
+def references():
+    return render_template('references.html')
 
 login_manager = LoginManager()
 login_manager.init_app(app)
