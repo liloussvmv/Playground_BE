@@ -6,7 +6,19 @@
 {% endblock %}
 
 {% block body %}
-<h1>PROFILE PROFILE PROFILE </h1>
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        .progress-bar-fill {
+            height: 100%;
+            background-color: #007bff;
+        }
+    </style>
+</head>
+<body>
+<h1>Profile </h1>
 
     <div class="user-info">
         <h2>User Information</h2>
@@ -15,7 +27,24 @@
         <p><span class="label">Score:</span> {{data.Score}}</p>
     </div>
 
+    <h1>Progress</h1>
+    <div class="progress">
+        <div class="progress-bar" id="test" role="progressbar" aria-valuenow="{{ progress_percentage }}" aria-valuemin="0" aria-valuemax="100">
+            <span class="sr-only">{{ progress_percentage }}% Complete</span>
+        </div>
+    </div>
+    <div id="progress-text">{{ progress_percentage }}%</div>
 
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script>
+        var progressBar = document.getElementById('test');
+        var myDiv = document.getElementById('progress-text');
+        var value1 = myDiv.innerText;
+        var progressPercentage = value1.slice(0, -1);
+        progressBar.style.width = progressPercentage + '%';
+    </script>
+</body>
+</html>
 {% endblock %}
 
 

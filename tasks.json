@@ -8,7 +8,7 @@
                 {
                     "id": 0,
                     "number": 0,
-                    "score": 100,
+                    "score": 400,
                     "name": "Guess the number.",
                     "flag": "CSP{Y0u-50lv3D_Th3_R3v3r5e3ng3n33r1ng}",
                     "desc": "Your goal is to retrive the flag by reversing the C++ binary file included using you prefered reverse engineering tool/method. There are multiple solutions for this excercise.",
@@ -24,7 +24,7 @@
                 {
                     "id": 0,
                     "number": 0,
-                    "score": 100,
+                    "score": 400,
                     "name": "Buffer overflow",
                     "flag": "CSP{Y0u-50lv3D_Th3_Buff3r_Ov3rf70}",
                     "desc": "Binary exploitation is very similar to the reverse engeneering, however in this case you need to utilize the weakness in C's puts() function to execute a different function than the main called win() that should print out your flag.",
@@ -39,7 +39,7 @@
                 {
                     "id": 0,
                     "number": 0,
-                    "score": 100,
+                    "score": 200,
                     "name": "Secret Mosaic",
                     "flag": "CSP{Y0u-50lv3D_Th3_V1su4l_$3cr3t}",
                     "desc": "Welcome to the 'Secret Mosaic' visual secret sharing challenge! Are you ready to uncover the hidden secret by decoding a mosaic of images? Sharpen your eyes and dive into the world of visual cryptography. In this challenge, you will be downloading a 'zip' file which contains two images. However, these images hold a hidden secret that can only be revealed through visual secret sharing techniques. Your mission is to decipher the hidden message by combining the individual images in a specific way.",

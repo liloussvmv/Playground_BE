@@ -159,11 +159,11 @@ def room(post_id):
     return redirect('/forum')
 
 
-@app.route('/profile')
-@login_required
-def profile():
-    return render_template("profile.html", data={"Username": current_user.username, "Score": current_user.score,
-                                                 "Email": current_user.email})
+# @app.route('/profile')
+# @login_required
+# def profile():
+#     return render_template("profile.html", data={"Username": current_user.username, "Score": current_user.score,
+#                                                  "Email": current_user.email})
 
 
 @app.route('/logout')
@@ -333,3 +333,28 @@ def download_file(filename):
     else:
         return "File not found"
 
+import json
+
+@app.route('/profile')
+@login_required
+def profile():
+    # Load the JSON file containing the challenges
+    with open('tasks.json') as file:
+        data = json.load(file)
+    
+    challenges = data['challanges']
+    total_score = sum(task['score'] for category in challenges for task in category['tasks'])
+    print(total_score)
+    
+    # user_solved_challenges = SolvedChallenge.query.filter_by(user_id=current_user.id).all()
+    # user_solved_score = sum(challenge.task.score for challenge in user_solved_challenges)
+    scoreUser = current_user.score
+    print()
+    if total_score == 0:
+        progress_percentage = 0
+    else:
+        progress_percentage = (scoreUser / total_score) * 100
+    
+    # return jsonify(progress_percentage), 200
+    return render_template('profile.html', progress_percentage=round(progress_percentage,2),data={"Username": current_user.username, "Score": current_user.score,
+                                                 "Email": current_user.email})
