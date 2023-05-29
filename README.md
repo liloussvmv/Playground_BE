@@ -10,7 +10,12 @@
 
 This will install all the required packages with their specific versions mentioned in the requirements.txt file.
 
-3- Start the Flask application:
+3 - Setup Mysql Database:
+
+    - Create a database and add the credentials to "DB_config.py" file
+
+
+4 - Start the Flask application:
 
     flask run
 
