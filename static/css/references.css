@@ -1,35 +1,76 @@
-@keyframes fadeIn {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
+/* references.css */
+
+/* Reset default margin and padding */
+body, h1, p {
+  margin: 0;
+  padding: 0;
+}
+
+/* Set background color and text color */
+body {
+  background-color: #f2f2f2;
+  color: #333;
+  font-family: Arial, sans-serif;
+}
+
+/* Center the content */
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Style the heading */
+h1 {
+  font-size: 28px;
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+/* Style the platforms */
+.platform {
+  background-color: #fff;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.platform strong {
+  font-weight: bold;
+  color: #333;
+}
+
+.platform p {
+  margin-top: 10px;
+  line-height: 1.5;
+}
+
+.platform a {
+  color: #007bff;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.platform a:hover {
+  text-decoration: underline;
+  color: #0056b3;
+}
+
+/* Responsive styles */
+@media screen and (max-width: 600px) {
+  .container {
+    padding: 10px;
   }
-  
-  body {
-    font-family: Arial, sans-serif;
-    margin: 20px;
-  }
-  
+
   h1 {
-    color: #333;
-    animation: fadeIn 1s ease-in;
-  }
-  
-  .platform {
+    font-size: 24px;
     margin-bottom: 10px;
-    animation: fadeIn 1s ease-in;
   }
-  
-  .platform a {
-    color: #007bff;
-    text-decoration: none;
-    transition: color 0.3s ease-in-out;
+
+  .platform {
+    padding: 10px;
+    margin-bottom: 10px;
   }
-  
-  .platform a:hover {
-    text-decoration: underline;
-    color: #ff6600;
-  }
-  
+}
