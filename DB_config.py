@@ -1,7 +1,7 @@
 db_config = {
     'user': 'root',
-    'password': 'CyberSec',
+    'password': '',
     'host': 'localhost',
-    'port': '3306',
+    'port': '3308',
     'database': 'cybersec_playground'
 }
