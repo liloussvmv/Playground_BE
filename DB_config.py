@@ -1,7 +1,7 @@
 db_config = {
     'user': 'root',
-    'password': 'CyberSec',
-    'host': 'localhost',
-    'port': '3306',
-    'database': 'cybersec_playground'
+    'password': 'IHEmHKR95DvWUFAjeEX4',
+    'host': 'containers-us-west-67.railway.app',
+    'port': '7984',
+    'database': 'railway'
 }
